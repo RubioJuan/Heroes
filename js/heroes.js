@@ -75,39 +75,80 @@ const heroes = [ {
 }
 ]
 
-const id1 = '5d86371fd55e2e2a30fe1cc3';
-const id2 = '5d86371fd55e2e2a30fe1cc4'
-const id3 = '5d86371f9f80b591f499df32'
 /**
- * @param {string} id
- * @param {( error: string |Null, hero: object)=> void } callback
+ * 
+ * @param {String} id 
+ * @returns {Promise}
  */
-const findHero = (id, callback) =>{
-    const hero = heroes.find ( hero => hero.id === id);
 
-    if (!hero) {
-        callback (`Heroe con id ${ id } no encontrado.`)
-        return; //undefined;
-    }
-    callback( null, hero );
+const findHero = ( id ) => {
+    return new Promise((resolve, reject)=>{
+        const hero = heroes.find(hero => hero.ide === id);
+        if (hero){
+            resolve(hero);
+            return;
+        }
+        reject(`Hero con id ${id} no fue encontrado...`)
+    });
 }
-const valor = ( id1 , (error, hero) => {
-    if ( error ) {
-        console.log (error); 
-        return;
-    }
-    findHero(id2,(error,hero2) =>{
-        if ( error ) {
-            console.log(error);
-            return;
-        }
-    findHero(id3,(error,hero3) =>{
-        if ( error ) {
-            console.log(error);
-            return;
-        }
-        console.log(`${ hero.name } -- ${ hero2.name} -- ${ hero3.name}`);
-    });
-    });
-});
-findHero(id1, (null, valor));
+
+const id = '34jh35jk3h4kj5h34j5324o1i2p'
+const viewHero = (hero) =>{
+    console.log(hero.name)
+}
+const viewError = (error) =>{
+    console.log(error);
+}
+findHero(id)
+    .then( viewHero )
+    .catch( viewError );
+
+
+const id1 = '7283180jkshdajkdssadh082733128903'
+const id2 = '5f786585sd67f5s8757a65sd86a5876a3'
+
+Promise.all([
+    findHero(id1),
+    findHero(id2)
+])
+
+    // .then( ([hero1, hero2])) => renderTwoHeroes(hero1,hero2)
+    // .catch(renderError);
+
+    
+// const id1 = '5d86371fd55e2e2a30fe1cc3';
+// const id2 = '5d86371fd55e2e2a30fe1cc4'
+// const id3 = '5d86371f9f80b591f499df32'
+// /**
+//  * @param {string} id
+//  * @param {( error: string |Null, hero: object)=> void } callback
+//  */
+// const findHero = (id, callback) =>{
+//     const hero = heroes.find ( hero => hero.id === id);
+
+//     if (!hero) {
+//         callback (`Heroe con id ${ id } no encontrado.`)
+//         return; //undefined;
+//     }
+//     callback( null, hero );
+// }
+// const valor = ( id1 , (error, hero) => {
+//     if ( error ) {
+//         console.log (error); 
+//         return;
+//     }
+//     findHero(id2,(error,hero2) =>{
+//         if ( error ) {
+//             console.log(error);
+//             return;
+//         }
+//     findHero(id3,(error,hero3) =>{
+//         if ( error ) {
+//             console.log(error);
+//             return;
+//         }
+//         console.log(`${ hero.name } -- ${ hero2.name} -- ${ hero3.name}`);
+//     });
+//     });
+// });
+// findHero(id1, (null, valor));
